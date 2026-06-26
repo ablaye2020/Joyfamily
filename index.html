@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>⚡ JOY WhatsApp Pro - Générateur de Messages Puissants</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: #0b141a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* 🎥 VIDEO GEAR 5 EN FOND */
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+            opacity: 0.20;
+            pointer-events: none;
+        }
+        .video-background iframe {
+            width: 100vw;
+            height: 100vh;
+            border: none;
+            transform: scale(1.3);
+        }
+        .video-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, #0b141acc 30%, #0b141aee 100%);
+            z-index: 1;
+        }
+
+        /* 💫 ANIMATION DU LOGO WHATSAPP */
+        @keyframes whatsappPulse {
+            0% { transform: scale(1); filter: drop-shadow(0 0 10px #25d36666); }
+            50% { transform: scale(1.15); filter: drop-shadow(0 0 40px #25d366cc) drop-shadow(0 0 80px #25d36666); }
+            100% { transform: scale(1); filter: drop-shadow(0 0 10px #25d36666); }
+        }
+        @keyframes whatsappSpin {
+            0% { transform: rotate(0deg) scale(1); }
+            25% { transform: rotate(5deg) scale(1.08); }
+            75% { transform: rotate(-5deg) scale(1.08); }
+            100% { transform: rotate(0deg) scale(1); }
+        }
+        @keyframes ringPulse {
+            0% { box-shadow: 0 0 0 0 #25d36644, 0 0 0 0 #25d36622; }
+            100% { box-shadow: 0 0 0 30px transparent, 0 0 0 60px transparent; }
+        }
+        @keyframes floatBubble {
+            0% { transform: translateY(0px) scale(1); opacity: 0.6; }
+            50% { transform: translateY(-12px) scale(1.1); opacity: 1; }
+            100% { transform: translateY(0px) scale(1); opacity: 0.6; }
+        }
+
+        /* 🟢 CARTE PRINCIPALE */
+        .whatsapp-card {
+            position: relative;
+            z-index: 10;
+            max-width: 1000px;
+            width: 100%;
+            background: #0e1a22f5;
+            backdrop-filter: blur(15px);
+            border-radius: 52px 52px 36px 36px;
+            box-shadow: 
+                0 30px 70px rgba(0,0,0,0.95),
+                0 0 0 3px #25d36655 inset,
+                0 0 60px #25d36633;
+            padding: 30px 30px 40px;
+            border: 1px solid #25d36666;
+            transition: 0.5s;
+            animation: ringPulse 3s infinite;
+        }
+        .whatsapp-card:hover {
+            box-shadow: 
+                0 40px 80px rgba(0,0,0,1),
+                0 0 0 4px #25d366aa inset,
+                0 0 80px #25d36655;
+        }
+
+        /* 🏆 HEADER WHATSAPP ULTRA */
+        .whatsapp-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #25d36655;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 12px;
+            position: relative;
+        }
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        /* 💚 LOGO WHATSAPP ANIMÉ INCROYABLE */
+        .whatsapp-logo {
+            position: relative;
+            font-size: 3.2rem;
+            color: #25d366;
+            animation: whatsappPulse 2.5s infinite ease-in-out;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .whatsapp-logo .logo-ring {
+            position: absolute;
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            border: 3px solid #25d36666;
+            animation: ringPulse 2s infinite;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .whatsapp-logo .logo-ring2 {
+            position: absolute;
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            border: 2px dashed #25d36644;
+            animation: whatsappSpin 4s infinite linear;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .whatsapp-logo i {
+            background: #0e1a22;
+            padding: 14px;
+            border-radius: 50%;
+            border: 3px solid #25d366;
+            box-shadow: 0 0 40px #25d36666, 0 0 80px #25d36633;
+            position: relative;
+            z-index: 2;
+            font-size: 2.8rem;
+            animation: floatBubble 3s infinite ease-in-out;
+        }
+        .whatsapp-logo .badge-wa {
+            position: absolute;
+            bottom: -6px;
+            right: -6px;
+            background: #25d366;
+            color: #0b141a;
+            font-size: 0.8rem;
+            font-weight: 900;
+            padding: 4px 10px;
+            border-radius: 40px;
+            border: 2px solid #0e1a22;
+            z-index: 3;
+            letter-spacing: 1px;
+            animation: floatBubble 2.2s infinite ease-in-out reverse;
+        }
+
+        .whatsapp-title {
+            color: #fff;
+            font-size: 2rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            text-shadow: 0 0 30px #25d36666;
+            line-height: 1.2;
+        }
+        .whatsapp-title span {
+            color: #25d366;
+            font-weight: 900;
+            text-shadow: 0 0 40px #25d36688;
+        }
+        .whatsapp-title .sub {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 400;
+            color: #aebac1;
+            letter-spacing: 1.5px;
+            text-shadow: none;
+            margin-top: 2px;
+        }
+
+        .header-right {
+            color: #aebac1;
+            font-size: 0.85rem;
+            background: #1a2a32cc;
+            padding: 10px 22px;
+            border-radius: 60px;
+            border: 2px solid #25d36655;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            backdrop-filter: blur(4px);
+            font-weight: 600;
+        }
+        .header-right i {
+            color: #25d366;
+            font-size: 1.2rem;
+            animation: floatBubble 2s infinite;
+        }
+        .header-right .online-dot {
+            width: 12px;
+            height: 12px;
+            background: #25d366;
+            border-radius: 50%;
+            display: inline-block;
+            animation: ringPulse 1.5s infinite;
+        }
+
+        /* 📋 TABS */
+        .tabs-container {
+            display: flex;
+            gap: 14px;
+            margin-bottom: 32px;
+            flex-wrap: wrap;
+        }
+        .tab-btn {
+            flex: 1;
+            min-width: 170px;
+            padding: 18px 14px;
+            border: 2.5px solid #2a3b44;
+            border-radius: 60px;
+            background: transparent;
+            color: #aebac1;
+            font-size: 1.15rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.4s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            letter-spacing: 0.5px;
+            backdrop-filter: blur(4px);
+        }
+        .tab-btn i {
+            font-size: 1.5rem;
+            transition: 0.3s;
+        }
+        .tab-btn.active {
+            background: #25d36622;
+            border-color: #25d366;
+            color: #fff;
+            box-shadow: 0 0 40px #25d36644, inset 0 0 20px #25d36622;
+            transform: scale(1.03);
+        }
+        .tab-btn.active i {
+            color: #25d366;
+            text-shadow: 0 0 30px #25d366aa;
+        }
+        .tab-btn:hover {
+            background: #1f2c34;
+            border-color: #25d36688;
+            transform: translateY(-2px);
+        }
+
+        /* 📦 PANELS */
+        .panel {
+            display: none;
+            animation: fadeSlide 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        .panel.active {
+            display: block;
+        }
+
+        @keyframes fadeSlide {
+            0% { opacity: 0; transform: translateY(25px) scale(0.97); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        /* 🎯 ZONE DE GÉNÉRATION */
+        .gen-box {
+            background: #0b141aee;
+            border-radius: 32px;
+            padding: 28px 26px 30px;
+            border: 2px solid #25d36633;
+            box-shadow: inset 0 0 50px #00000077, 0 10px 30px #00000055;
+            margin-bottom: 18px;
+            position: relative;
+            overflow: hidden;
+        }
+        .gen-box::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 30% 40%, #25d36608, transparent 70%);
+            pointer-events: none;
+        }
+        .gen-box label {
+            color: #d1d9df;
+            font-weight: 700;
+            font-size: 1.05rem;
+            display: block;
+            margin-bottom: 10px;
+            letter-spacing: 0.5px;
+            position: relative;
+        }
+        .gen-box label i {
+            color: #25d366;
+            margin-right: 10px;
+        }
+        .gen-box textarea {
+            width: 100%;
+            background: #14222b;
+            border: 2.5px solid #2a3b44;
+            border-radius: 24px;
+            padding: 18px 22px;
+            color: #e9edef;
+            font-size: 1.05rem;
+            resize: vertical;
+            min-height: 120px;
+            transition: 0.4s;
+            outline: none;
+            position: relative;
+            font-weight: 400;
+            line-height: 1.6;
+        }
+        .gen-box textarea:focus {
+            border-color: #25d366;
+            box-shadow: 0 0 30px #25d36644, inset 0 0 20px #25d36611;
+        }
+        .gen-box textarea::placeholder {
+            color: #5a6b75;
+            font-style: italic;
+        }
+        .char-count {
+            text-align: right;
+            color: #5a6b75;
+            font-size: 0.8rem;
+            margin-top: 6px;
+            padding-right: 6px;
+        }
+
+        .action-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-top: 24px;
+            align-items: center;
+        }
+        .btn-generate {
+            background: linear-gradient(145deg, #25d366, #1da85a);
+            border: none;
+            padding: 18px 40px;
+            border-radius: 60px;
+            font-weight: 800;
+            font-size: 1.2rem;
+            color: #0b141a;
+            cursor: pointer;
+            transition: 0.4s;
+            display: inline-flex;
+            align-items: center;
+            gap: 14px;
+            box-shadow: 0 0 40px #25d36655, 0 8px 20px #00000066;
+            flex: 1;
+            justify-content: center;
+            min-width: 190px;
+            letter-spacing: 0.5px;
+        }
+        .btn-generate:hover {
+            transform: scale(1.05) translateY(-2px);
+            background: linear-gradient(145deg, #30d873, #25d366);
+            box-shadow: 0 0 60px #25d366aa, 0 12px 30px #00000088;
+        }
+        .btn-generate:active {
+            transform: scale(0.97);
+        }
+        .btn-generate i {
+            font-size: 1.5rem;
+        }
+
+        .btn-copy {
+            background: #1a2a32;
+            border: 2.5px solid #25d36666;
+            padding: 16px 30px;
+            border-radius: 60px;
+            font-weight: 700;
+            color: #d1d9df;
+            cursor: pointer;
+            transition: 0.4s;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            flex: 0.5;
+            min-width: 140px;
+            justify-content: center;
+            font-size: 1rem;
+        }
+        .btn-copy:hover {
+            background: #2a3b44;
+            border-color: #25d366;
+            color: #fff;
+            box-shadow: 0 0 30px #25d36633;
+            transform: translateY(-2px);
+        }
+        .btn-copy i {
+            color: #25d366;
+            font-size: 1.2rem;
+        }
+
+        /* 🔐 CODE SECTION (fils de JOY) */
+        .code-section {
+            background: #0f1a22;
+            border-radius: 28px;
+            padding: 20px 26px;
+            border-left: 8px solid #f5c542;
+            margin-bottom: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 18px;
+            box-shadow: 0 4px 20px #00000044;
+        }
+        .code-section label {
+            color: #f5c542;
+            font-weight: 800;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .code-section label i {
+            font-size: 1.6rem;
+            text-shadow: 0 0 20px #f5c54266;
+        }
+        .code-section input {
+            flex: 1;
+            min-width: 160px;
+            background: #14222b;
+            border: 2.5px solid #3a4b54;
+            border-radius: 60px;
+            padding: 14px 24px;
+            color: #e9edef;
+            font-size: 1rem;
+            outline: none;
+            transition: 0.4s;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+        .code-section input:focus {
+            border-color: #f5c542;
+            box-shadow: 0 0 30px #f5c54244;
+        }
+        .code-section .code-status {
+            color: #aebac1;
+            font-size: 0.9rem;
+            background: #14222b;
+            padding: 8px 22px;
+            border-radius: 60px;
+            border: 2px solid #3a4b54;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .code-section .code-status i {
+            font-size: 1rem;
+        }
+        .code-section .code-status.valid {
+            border-color: #25d366;
+            color: #25d366;
+            background: #25d36622;
+        }
+        .code-section .code-status.invalid {
+            border-color: #ff6b6b;
+            color: #ff6b6b;
+            background: #ff6b6b22;
+        }
+
+        /* 📤 MESSAGE GÉNÉRÉ */
+        .generated-message {
+            background: #0b141a;
+            border-radius: 28px;
+            padding: 22px 26px;
+            border: 2px solid #2a3b44;
+            min-height: 80px;
+            color: #e9edef;
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-top: 10px;
+            transition: 0.4s;
+            box-shadow: inset 0 0 30px #00000044;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+        .generated-message:empty::before {
+            content: '💬 Votre message généré apparaîtra ici...';
+            color: #4a5b65;
+            font-style: italic;
+        }
+
+        /* 🦊 FOOTER */
+        .whatsapp-footer {
+            margin-top: 28px;
+            text-align: center;
+            color: #4a5b65;
+            font-size: 0.8rem;
+            border-top: 2px solid #1a2a32;
+            padding-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .whatsapp-footer span i {
+            color: #25d366;
+            margin: 0 4px;
+        }
+        .whatsapp-footer .power {
+            color: #25d36688;
+            font-weight: 600;
+        }
+
+        /* 📱 RESPONSIVE */
+        @media (max-width: 700px) {
+            .whatsapp-card { padding: 18px; }
+            .whatsapp-title { font-size: 1.4rem; }
+            .whatsapp-logo i { font-size: 2rem; padding: 10px; }
+            .whatsapp-logo .logo-ring { width: 70px; height: 70px; }
+            .whatsapp-logo .logo-ring2 { width: 85px; height: 85px; }
+            .header-right { font-size: 0.7rem; padding: 6px 14px; }
+            .tab-btn { font-size: 0.9rem; min-width: 120px; padding: 12px 10px; }
+            .btn-generate { font-size: 1rem; padding: 14px 20px; }
+            .code-section { padding: 16px; }
+        }
+        @media (max-width: 480px) {
+            .whatsapp-card { border-radius: 32px; padding: 14px; }
+            .whatsapp-title { font-size: 1.1rem; }
+            .header-left { gap: 10px; }
+            .tab-btn { font-size: 0.75rem; min-width: 90px; padding: 10px 6px; gap: 6px; }
+            .tab-btn i { font-size: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 🎥 VIDEO GEAR 5 EN ARRIÈRE-PLAN -->
+    <div class="video-background">
+        <iframe src="https://www.youtube.com/embed/TxjVbR4iF54?autoplay=1&mute=1&loop=1&playlist=TxjVbR4iF54&controls=0&showinfo=0&rel=0&modestbranding=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    </div>
+    <div class="video-overlay"></div>
+
+    <!-- 💬 CARTE PRINCIPALE -->
+    <div class="whatsapp-card">
+
+        <!-- 🟢 HEADER WHATSAPP ULTRA -->
+        <div class="whatsapp-header">
+            <div class="header-left">
+                <div class="whatsapp-logo">
+                    <div class="logo-ring"></div>
+                    <div class="logo-ring2"></div>
+                    <i class="fab fa-whatsapp"></i>
+                    <span class="badge-wa">LIVE</span>
+                </div>
+                <div class="whatsapp-title">
+                    JOY <span>WhatsApp</span>
+                    <span class="sub"><i class="fas fa-bolt" style="color:#25d366;"></i> GÉNÉRATEUR DE MESSAGES PUISSANTS</span>
+                </div>
+            </div>
+            <div class="header-right">
+                <span class="online-dot"></span>
+                <i class="fas fa-shield-alt"></i>
+                <span>256-bit <i class="fas fa-lock" style="font-size:0.8rem;"></i></span>
+                <span style="border-left:1px solid #2a3b44;padding-left:12px;"><i class="fas fa-users"></i> 1.2M+</span>
+            </div>
+        </div>
+
+        <!-- 📋 TABS : DEUX PARTIES -->
+        <div class="tabs-container">
+            <button class="tab-btn active" data-tab="panel-fans">
+                <i class="fas fa-star"></i> Fans de JOY
+            </button>
+            <button class="tab-btn" data-tab="panel-fils">
+                <i class="fas fa-crown"></i> Fils de JOY
+            </button>
+        </div>
+
+        <!-- 📦 PANEL 1 : FANS -->
+        <div id="panel-fans" class="panel active">
+            <div class="gen-box">
+                <label><i class="fas fa-pen-fancy"></i> Message pour tes fans 🔥</label>
+                <textarea id="input-fans" placeholder="Écris ton message personnalisé pour tes fans... ou laisse vide pour un message généré automatiquement !"></textarea>
+                <div class="char-count"><span id="count-fans">0</span> caractères</div>
+            </div>
+            <div class="action-row">
+                <button class="btn-generate" id="gen-fans"><i class="fas fa-wand-magic-sparkles"></i> Générer un message</button>
+                <button class="btn-copy" id="copy-fans"><i class="fas fa-copy"></i> Copier</button>
+            </div>
+            <div class="generated-message" id="output-fans"></div>
+        </div>
+
+        <!-- 📦 PANEL 2 : FILS DE JOY (avec code) -->
+        <div id="panel-fils" class="panel">
+            <div class="code-section">
+                <label><i class="fas fa-key"></i> Code d'accès</label>
+                <input type="text" id="access-code" placeholder="Entrez le code secret..." />
+                <span class="code-status" id="code-status"><i class="fas fa-circle"></i> En attente</span>
+            </div>
+            <div class="gen-box">
+                <label><i class="fas fa-crown" style="color:#f5c542;"></i> Message pour les Fils de JOY 👑</label>
+                <textarea id="input-fils" placeholder="Message exclusif pour les fils de JOY... ou laisse vide pour un message automatique !"></textarea>
+                <div class="char-count"><span id="count-fils">0</span> caractères</div>
+            </div>
+            <div class="action-row">
+                <button class="btn-generate" id="gen-fils"><i class="fas fa-wand-magic-sparkles"></i> Générer un message</button>
+                <button class="btn-copy" id="copy-fils"><i class="fas fa-copy"></i> Copier</button>
+            </div>
+            <div class="generated-message" id="output-fils"></div>
+        </div>
+
+        <!-- 🦊 FOOTER -->
+        <div class="whatsapp-footer">
+            <span><i class="fas fa-check-circle" style="color:#25d366;"></i> Sécurisé &amp; Chiffré</span>
+            <span><i class="fas fa-bolt" style="color:#f5c542;"></i> Propulsé par JOY</span>
+            <span class="power"><i class="fas fa-skull"></i> Gear 5 Luffy <i class="fas fa-skull"></i></span>
+            <span><i class="fab fa-whatsapp" style="color:#25d366;"></i> WhatsApp Inc.</span>
+        </div>
+
+    </div>
+
+    <script>
+        // ============================================================
+        // 1. GESTION DES TABS
+        // ============================================================
+        const tabs = document.querySelectorAll('.tab-btn');
+        const panels = {
+            fans: document.getElementById('panel-fans'),
+            fils: document.getElementById('panel-fils')
+        };
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                tabs.forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                const target = this.dataset.tab; // "panel-fans" ou "panel-fils"
+                Object.keys(panels).forEach(key => {
+                    panels[key].classList.toggle('active', `panel-${key}` === target);
+                });
+            });
+        });
+
+        // ============================================================
+        // 2. COMPTEUR DE CARACTÈRES
+        // ============================================================
+        const inputFans = document.getElementById('input-fans');
+        const inputFils = document.getElementById('input-fils');
+        const countFans = document.getElementById('count-fans');
+        const countFils = document.getElementById('count-fils');
+
+        inputFans.addEventListener('input', () => countFans.textContent = inputFans.value.length);
+        inputFils.addEventListener('input', () => countFils.textContent = inputFils.value.length);
+
+        // ============================================================
+        // 3. CODE D'ACCÈS POUR LES FILS DE JOY
+        // ============================================================
+        const codeInput = document.getElementById('access-code');
+        const codeStatus = document.getElementById('code-status');
+        const SECRET_CODE = 'JOY2026'; // 🔐 Le code secret
+
+        function checkCode() {
+            const val = codeInput.value.trim();
+            if (val === SECRET_CODE) {
+                codeStatus.className = 'code-status valid';
+                codeStatus.innerHTML = '<i class="fas fa-check-circle"></i> Code valide ✅';
+                return true;
+            } else if (val === '') {
+                codeStatus.className = 'code-status';
+                codeStatus.innerHTML = '<i class="fas fa-circle"></i> En attente';
+                return false;
+            } else {
+                codeStatus.className = 'code-status invalid';
+                codeStatus.innerHTML = '<i class="fas fa-times-circle"></i> Code incorrect ❌';
+                return false;
+            }
+        }
+
+        codeInput.addEventListener('input', checkCode);
+
+        // ============================================================
+        // 4. GÉNÉRATION DE MESSAGES LONGS ET CONVAINCANTS
+        // ============================================================
+        function generateMessage(type, userInput) {
+            // Si l'utilisateur a écrit quelque chose, on le garde
+            if (userInput && userInput.trim().length > 5) {
+                return userInput.trim();
+            }
+
+            // Sinon, on génère un message puissant selon le type
+            const now = new Date();
+            const dateStr = now.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+
+            if (type === 'fans') {
+                return `🔥 Salut à toi, cher fan de JOY ! 
+
+Aujourd'hui, ${dateStr}, je veux te dire que tu es incroyable. Chaque jour, ta passion et ton énergie me poussent à me dépasser. Sans toi, rien de tout ça n'existerait. Tu es la flamme qui alimente mon feu intérieur.
+
+N'oublie jamais que tu as un pouvoir immense en toi. Celui de croire en tes rêves, de te battre pour ce qui compte et d'inspirer ceux qui t'entourent. Comme Luffy en Gear 5, libère tout ton potentiel et danse sur le fil de tes ambitions.
+
+Je suis fier de compter parmi mes fans. Ensemble, on va conquérir le monde, un message à la fois. Reste fidèle à toi-même, et n'aie jamais peur de briller.
+
+Avec tout mon respect et ma gratitude,
+TON JOY 🏴‍☠️✨
+
+P.S. : N'oublie pas de partager ce message avec tes proches. La puissance de la connexion humaine est notre plus grande force. 💚`;
+            }
+
+            if (type === 'fils') {
+                return `👑 À mes chers Fils de JOY,
+
+Ce message est pour vous, les gardiens de l'héritage. ${dateStr}, un jour de plus pour écrire notre légende.
+
+Vous êtes l'élite, le sang de JOY qui coule dans les veines de cette communauté. Votre loyauté, votre force et votre intelligence font de vous des êtres d'exception. Comme les Gear 5 de Luffy, vous avez dépassé les limites du possible.
+
+Le chemin est long, mais chaque pas que vous faites est un pas vers la grandeur. N'oubliez jamais d'où vous venez, mais ne cessez jamais de regarder vers l'horizon. Le pouvoir que vous portez en vous est infini.
+
+Restez unis, restez forts, et surtout, restez fidèles à l'esprit de JOY. Le monde vous appartient, il vous attend.
+
+Avec tout mon amour et ma fierté,
+Votre Père, JOY 🦁🔥
+
+P.S. : Ce code secret que vous avez utilisé est la preuve que vous êtes des initiés. Gardez-le précieusement. Le voyage ne fait que commencer. 🚀`;
+            }
+
+            return 'Message généré automatiquement.';
+        }
+
+        // ============================================================
+        // 5. AFFICHAGE DES MESSAGES
+        // ============================================================
+        const outputFans = document.getElementById('output-fans');
+        const outputFils = document.getElementById('output-fils');
+
+        function displayMessage(type) {
+            let input;
+            let output;
+            if (type === 'fans') {
+                input = inputFans;
+                output = outputFans;
+            } else {
+                input = inputFils;
+                output = outputFils;
+            }
+
+            // Vérifier le code pour les fils
+            if (type === 'fils' && !checkCode()) {
+                output.textContent = '⛔ Accès refusé. Veuillez entrer le code correct pour les Fils de JOY.';
+                output.style.borderColor = '#ff6b6b';
+                return;
+            } else {
+                output.style.borderColor = '#2a3b44';
+            }
+
+            const message = generateMessage(type, input.value);
+            output.textContent = message;
+        }
+
+        // ============================================================
+        // 6. BOUTONS DE GÉNÉRATION ET COPIE
+        // ============================================================
+        document.getElementById('gen-fans').addEventListener('click', () => displayMessage('fans'));
+        document.getElementById('gen-fils').addEventListener('click', () => displayMessage('fils'));
+
+        // Copier avec feedback
+        function copyMessage(type) {
+            let output;
+            if (type === 'fans') {
+                output = outputFans;
+            } else {
+                output = outputFils;
+            }
+            const text = output.textContent;
+            if (!text || text.includes('⛔') || text.includes('💬 Votre message')) {
+                alert('❌ Rien à copier. Générez d\'abord un message !');
+                return;
+            }
+            navigator.clipboard.writeText(text).then(() => {
+                const btn = type === 'fans' ? document.getElementById('copy-fans') : document.getElementById('copy-fils');
+                const original = btn.innerHTML;
+                btn.innerHTML = '<i class="fas fa-check"></i> Copié !';
+                setTimeout(() => btn.innerHTML = original, 2000);
+            }).catch(() => {
+                alert('❌ Impossible de copier. Sélectionne et copie manuellement.');
+            });
+        }
+
+        document.getElementById('copy-fans').addEventListener('click', () => copyMessage('fans'));
+        document.getElementById('copy-fils').addEventListener('click', () => copyMessage('fils'));
+
+        // ============================================================
+        // 7. GÉNÉRATION AUTO AU CHARGEMENT (message accrocheur)
+        // ============================================================
+        window.addEventListener('load', () => {
+            displayMessage('fans');
+        });
+
+        // ============================================================
+        // 8. RACCOURCI : ENTER pour générer (dans les textarea)
+        // ============================================================
+        inputFans.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && e.shiftKey === false) {
+                e.preventDefault();
+                displayMessage('fans');
+            }
+        });
+        inputFils.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && e.shiftKey === false) {
+                e.preventDefault();
+                displayMessage('fils');
+            }
+        });
+
+        console.log('🔥 JOY WhatsApp Generator prêt !');
+        console.log('💚 Code secret pour les Fils de JOY : JOY2026');
+        console.log('🏴‍☠️ Gear 5 Luffy activated !');
+    </script>
+
+</body>
+</html>
