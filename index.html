@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>🛡️ WhatsApp Security - Signalement de Compte Dangereux</title>
+    <title>JOYBOY WhatsApp - Générateur de Signalement</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
         }
 
         body {
@@ -21,11 +21,11 @@
             align-items: center;
             padding: 20px;
             position: relative;
-            overflow-x: hidden;
+            overflow: hidden;
         }
 
-        /* 🎥 VIDEO GEAR 5 EN FOND (subtile) */
-        .video-background {
+        /* === VIDÉO JOYBOY (Luffy Gear 5) EN FOND === */
+        .video-bg {
             position: fixed;
             top: 0;
             left: 0;
@@ -33,14 +33,13 @@
             height: 100%;
             z-index: 0;
             overflow: hidden;
-            opacity: 0.12;
             pointer-events: none;
         }
-        .video-background iframe {
+        .video-bg iframe {
             width: 100vw;
             height: 100vh;
             border: none;
-            transform: scale(1.3);
+            transform: scale(1.2);
         }
         .video-overlay {
             position: fixed;
@@ -48,461 +47,390 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle at center, #0b141aee 30%, #0b141a 100%);
+            background: rgba(11, 20, 26, 0.88);
             z-index: 1;
         }
 
-        /* 💫 ANIMATIONS */
-        @keyframes whatsappPulse {
-            0% { transform: scale(1); filter: drop-shadow(0 0 10px #25d36666); }
-            50% { transform: scale(1.08); filter: drop-shadow(0 0 35px #25d366cc) drop-shadow(0 0 70px #25d36644); }
-            100% { transform: scale(1); filter: drop-shadow(0 0 10px #25d36666); }
+        /* === ANIMATIONS === */
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 0 20px rgba(37, 211, 102, 0.2); }
+            50% { box-shadow: 0 0 50px rgba(37, 211, 102, 0.4), 0 0 100px rgba(37, 211, 102, 0.1); }
         }
-        @keyframes ringPulse {
-            0% { box-shadow: 0 0 0 0 #25d36633, 0 0 0 0 #25d36611; }
-            100% { box-shadow: 0 0 0 25px transparent, 0 0 0 50px transparent; }
+        @keyframes floatLogo {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
         }
-        @keyframes floatBubble {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-8px); }
-        }
-        @keyframes slideIn {
-            0% { opacity: 0; transform: translateY(30px) scale(0.97); }
-            100% { opacity: 1; transform: translateY(0) scale(1); }
-        }
-        @keyframes glowPulse {
-            0%, 100% { box-shadow: 0 0 20px #ff6b6b44; }
-            50% { box-shadow: 0 0 50px #ff6b6b88, 0 0 100px #ff6b6b33; }
+        @keyframes fadeSlide {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
         }
 
-        /* 🟢 CARTE PRINCIPALE */
+        /* === CARTE PRINCIPALE === */
         .whatsapp-card {
             position: relative;
             z-index: 10;
-            max-width: 1000px;
+            max-width: 920px;
             width: 100%;
-            background: #0e1a22f5;
-            backdrop-filter: blur(15px);
-            border-radius: 48px 48px 32px 32px;
-            box-shadow: 
-                0 30px 70px rgba(0,0,0,0.95),
-                0 0 0 3px #ff6b6b55 inset,
-                0 0 60px #ff6b6b22;
-            padding: 30px 30px 40px;
-            border: 1px solid #ff6b6b44;
-            animation: slideIn 0.7s ease;
+            background: rgba(14, 26, 34, 0.92);
+            backdrop-filter: blur(16px);
+            border-radius: 40px;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.9), 0 0 0 1px rgba(37, 211, 102, 0.15);
+            padding: 28px 30px 34px;
+            border: 1px solid rgba(37, 211, 102, 0.1);
+            animation: fadeSlide 0.6s ease;
         }
 
-        /* 🏆 HEADER WHATSAPP SECURITY */
+        /* === HEADER === */
         .whatsapp-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding-bottom: 20px;
-            border-bottom: 3px solid #ff6b6b44;
-            margin-bottom: 28px;
+            padding-bottom: 18px;
+            border-bottom: 1px solid rgba(37, 211, 102, 0.12);
+            margin-bottom: 26px;
             flex-wrap: wrap;
             gap: 12px;
         }
         .header-left {
             display: flex;
             align-items: center;
-            gap: 18px;
+            gap: 16px;
         }
-
-        /* 💚 LOGO WHATSAPP ANIMÉ */
-        .whatsapp-logo {
+        .logo-wa {
             position: relative;
-            font-size: 3rem;
-            color: #25d366;
-            animation: whatsappPulse 2.8s infinite ease-in-out;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .whatsapp-logo .logo-ring {
-            position: absolute;
-            width: 85px;
-            height: 85px;
-            border-radius: 50%;
-            border: 3px solid #25d36655;
-            animation: ringPulse 2.5s infinite;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-        .whatsapp-logo i {
-            background: #0e1a22;
-            padding: 14px;
-            border-radius: 50%;
-            border: 3px solid #25d366;
-            box-shadow: 0 0 40px #25d36655;
-            position: relative;
-            z-index: 2;
             font-size: 2.6rem;
+            color: #25d366;
+            animation: floatLogo 3s ease-in-out infinite;
         }
-        .whatsapp-logo .badge-security {
+        .logo-wa i {
+            background: rgba(14, 26, 34, 0.9);
+            padding: 10px;
+            border-radius: 50%;
+            border: 2px solid #25d366;
+            box-shadow: 0 0 30px rgba(37, 211, 102, 0.2);
+            font-size: 2.2rem;
+        }
+        .logo-wa .badge {
             position: absolute;
-            bottom: -4px;
-            right: -4px;
-            background: #ff6b6b;
-            color: #fff;
-            font-size: 0.6rem;
-            font-weight: 900;
-            padding: 4px 10px;
-            border-radius: 40px;
-            border: 2px solid #0e1a22;
-            z-index: 3;
-            letter-spacing: 0.5px;
-            animation: floatBubble 2.5s infinite ease-in-out;
-        }
-
-        .whatsapp-title {
-            color: #fff;
-            font-size: 1.8rem;
+            bottom: -2px;
+            right: -2px;
+            background: #25d366;
+            color: #0b141a;
+            font-size: 0.55rem;
             font-weight: 800;
-            letter-spacing: -0.5px;
-            line-height: 1.2;
+            padding: 3px 10px;
+            border-radius: 30px;
+            border: 2px solid #0e1a22;
+            letter-spacing: 0.3px;
         }
-        .whatsapp-title span {
-            color: #ff6b6b;
-            font-weight: 900;
-            text-shadow: 0 0 30px #ff6b6b55;
+        .title {
+            color: #fff;
+            font-size: 1.6rem;
+            font-weight: 700;
+            letter-spacing: -0.3px;
         }
-        .whatsapp-title .sub {
+        .title span {
+            color: #25d366;
+        }
+        .title .sub {
             display: block;
             font-size: 0.75rem;
             font-weight: 400;
-            color: #aebac1;
-            letter-spacing: 1px;
+            color: #8696a0;
+            letter-spacing: 0.5px;
             margin-top: 2px;
         }
-
         .header-right {
-            color: #aebac1;
+            color: #8696a0;
             font-size: 0.8rem;
-            background: #1a2a32cc;
-            padding: 8px 20px;
-            border-radius: 60px;
-            border: 2px solid #ff6b6b44;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            backdrop-filter: blur(4px);
-        }
-        .header-right i {
-            color: #ff6b6b;
-            font-size: 1.1rem;
-        }
-        .header-right .alert-dot {
-            width: 10px;
-            height: 10px;
-            background: #ff6b6b;
-            border-radius: 50%;
-            display: inline-block;
-            animation: ringPulse 1.5s infinite;
-        }
-
-        /* 📋 TABS */
-        .tabs-container {
-            display: flex;
-            gap: 14px;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
-        }
-        .tab-btn {
-            flex: 1;
-            min-width: 150px;
-            padding: 16px 14px;
-            border: 2.5px solid #2a3b44;
-            border-radius: 60px;
-            background: transparent;
-            color: #aebac1;
-            font-size: 1.05rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: 0.4s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-        }
-        .tab-btn i { font-size: 1.3rem; transition: 0.3s; }
-        .tab-btn.active {
-            background: #ff6b6b22;
-            border-color: #ff6b6b;
-            color: #fff;
-            box-shadow: 0 0 40px #ff6b6b33;
-            transform: scale(1.02);
-        }
-        .tab-btn.active i { color: #ff6b6b; text-shadow: 0 0 30px #ff6b6b88; }
-        .tab-btn:hover {
-            background: #1f2c34;
-            border-color: #ff6b6b77;
-            transform: translateY(-2px);
-        }
-
-        /* 📦 PANELS */
-        .panel {
-            display: none;
-            animation: slideIn 0.5s ease;
-        }
-        .panel.active { display: block; }
-
-        /* 🎯 ZONE DE GÉNÉRATION */
-        .gen-box {
-            background: #0b141aee;
-            border-radius: 28px;
-            padding: 24px 24px 28px;
-            border: 2px solid #2a3b44;
-            box-shadow: inset 0 0 40px #00000055;
-            margin-bottom: 18px;
-        }
-        .gen-box label {
-            color: #d1d9df;
-            font-weight: 700;
-            font-size: 1rem;
-            display: block;
-            margin-bottom: 10px;
-        }
-        .gen-box label i {
-            margin-right: 10px;
-            color: #ff6b6b;
-        }
-        .gen-box textarea {
-            width: 100%;
-            background: #14222b;
-            border: 2.5px solid #2a3b44;
-            border-radius: 20px;
-            padding: 16px 20px;
-            color: #e9edef;
-            font-size: 1rem;
-            resize: vertical;
-            min-height: 100px;
-            transition: 0.4s;
-            outline: none;
-            line-height: 1.6;
-        }
-        .gen-box textarea:focus {
-            border-color: #ff6b6b;
-            box-shadow: 0 0 30px #ff6b6b33;
-        }
-        .gen-box textarea::placeholder {
-            color: #4a5b65;
-            font-style: italic;
-        }
-
-        .action-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 14px;
-            margin-top: 20px;
-            align-items: center;
-        }
-        .btn-generate {
-            background: linear-gradient(145deg, #ff6b6b, #e04848);
-            border: none;
-            padding: 16px 38px;
-            border-radius: 60px;
-            font-weight: 800;
-            font-size: 1.15rem;
-            color: #fff;
-            cursor: pointer;
-            transition: 0.4s;
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            box-shadow: 0 0 40px #ff6b6b44, 0 8px 20px #00000066;
-            flex: 1;
-            justify-content: center;
-            min-width: 180px;
-        }
-        .btn-generate:hover {
-            transform: scale(1.04) translateY(-2px);
-            background: linear-gradient(145deg, #ff7a7a, #ff5555);
-            box-shadow: 0 0 60px #ff6b6b88, 0 12px 30px #00000088;
-        }
-        .btn-generate i { font-size: 1.3rem; }
-
-        .btn-copy {
-            background: #1a2a32;
-            border: 2.5px solid #ff6b6b55;
-            padding: 14px 28px;
-            border-radius: 60px;
-            font-weight: 700;
-            color: #d1d9df;
-            cursor: pointer;
-            transition: 0.4s;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            flex: 0.5;
-            min-width: 130px;
-            justify-content: center;
-        }
-        .btn-copy:hover {
-            background: #2a3b44;
-            border-color: #ff6b6b;
-            color: #fff;
-            box-shadow: 0 0 30px #ff6b6b33;
-            transform: translateY(-2px);
-        }
-        .btn-copy i { color: #ff6b6b; font-size: 1.1rem; }
-
-        /* 🔐 CODE SECTION (fils de JOY) */
-        .code-section {
-            background: #0f1a22;
-            border-radius: 24px;
-            padding: 18px 24px;
-            border-left: 6px solid #f5c542;
-            margin-bottom: 18px;
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            gap: 14px;
-        }
-        .code-section label {
-            color: #f5c542;
-            font-weight: 700;
-            font-size: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .code-section label i { font-size: 1.4rem; }
-        .code-section input {
-            flex: 1;
-            min-width: 140px;
-            background: #14222b;
-            border: 2.5px solid #3a4b54;
-            border-radius: 60px;
-            padding: 12px 22px;
-            color: #e9edef;
-            font-size: 1rem;
-            outline: none;
-            transition: 0.4s;
-            font-weight: 600;
-            letter-spacing: 1px;
-        }
-        .code-section input:focus {
-            border-color: #f5c542;
-            box-shadow: 0 0 30px #f5c54244;
-        }
-        .code-section .code-status {
-            color: #aebac1;
-            font-size: 0.85rem;
-            background: #14222b;
-            padding: 6px 18px;
-            border-radius: 60px;
-            border: 2px solid #3a4b54;
-            font-weight: 600;
+            background: rgba(26, 42, 50, 0.6);
+            padding: 8px 18px;
+            border-radius: 40px;
+            border: 1px solid rgba(37, 211, 102, 0.15);
             display: flex;
             align-items: center;
             gap: 8px;
         }
-        .code-section .code-status.valid {
-            border-color: #25d366;
-            color: #25d366;
-            background: #25d36622;
-        }
-        .code-section .code-status.invalid {
-            border-color: #ff6b6b;
-            color: #ff6b6b;
-            background: #ff6b6b22;
+        .header-right .dot {
+            width: 8px;
+            height: 8px;
+            background: #25d366;
+            border-radius: 50%;
+            display: inline-block;
+            animation: pulseGlow 2s infinite;
         }
 
-        /* 📤 MESSAGE GÉNÉRÉ */
-        .generated-message {
-            background: #0b141a;
-            border-radius: 24px;
-            padding: 22px 26px;
-            border: 2px solid #2a3b44;
-            min-height: 80px;
-            color: #e9edef;
-            font-size: 1rem;
-            line-height: 1.7;
-            margin-top: 10px;
-            transition: 0.4s;
-            box-shadow: inset 0 0 30px #00000044;
-            white-space: pre-wrap;
-            word-break: break-word;
-        }
-        .generated-message:empty::before {
-            content: '📨 Votre message de signalement apparaîtra ici...';
-            color: #4a5b65;
-            font-style: italic;
-        }
-
-        /* 🦊 FOOTER */
-        .whatsapp-footer {
-            margin-top: 28px;
-            text-align: center;
-            color: #4a5b65;
-            font-size: 0.75rem;
-            border-top: 2px solid #1a2a32;
-            padding-top: 18px;
+        /* === TABS === */
+        .tabs {
             display: flex;
-            justify-content: center;
-            gap: 20px;
+            gap: 12px;
+            margin-bottom: 26px;
             flex-wrap: wrap;
         }
-        .whatsapp-footer span i { margin: 0 4px; }
-        .whatsapp-footer .power { color: #ff6b6b88; font-weight: 600; }
+        .tab-btn {
+            flex: 1;
+            min-width: 140px;
+            padding: 14px 16px;
+            border: 2px solid #2a3b44;
+            border-radius: 50px;
+            background: transparent;
+            color: #8696a0;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .tab-btn i { font-size: 1.2rem; }
+        .tab-btn.active {
+            background: rgba(37, 211, 102, 0.08);
+            border-color: #25d366;
+            color: #fff;
+            box-shadow: 0 0 30px rgba(37, 211, 102, 0.05);
+        }
+        .tab-btn:hover {
+            background: rgba(255,255,255,0.04);
+            border-color: #25d36666;
+        }
 
-        /* 📱 RESPONSIVE */
+        /* === PANELS === */
+        .panel {
+            display: none;
+            animation: fadeSlide 0.4s ease;
+        }
+        .panel.active { display: block; }
+
+        /* === ZONE DE SAISIE === */
+        .input-area {
+            background: rgba(11, 20, 26, 0.7);
+            border-radius: 24px;
+            padding: 20px 22px 24px;
+            border: 1px solid #2a3b44;
+            margin-bottom: 16px;
+        }
+        .input-area label {
+            color: #d1d9df;
+            font-weight: 600;
+            font-size: 0.95rem;
+            display: block;
+            margin-bottom: 8px;
+        }
+        .input-area label i { color: #25d366; margin-right: 8px; }
+        .input-area textarea {
+            width: 100%;
+            background: #0b141a;
+            border: 1.5px solid #2a3b44;
+            border-radius: 16px;
+            padding: 14px 18px;
+            color: #e9edef;
+            font-size: 0.95rem;
+            resize: vertical;
+            min-height: 80px;
+            outline: none;
+            transition: 0.3s;
+            line-height: 1.6;
+        }
+        .input-area textarea:focus {
+            border-color: #25d366;
+            box-shadow: 0 0 20px rgba(37, 211, 102, 0.05);
+        }
+        .input-area textarea::placeholder {
+            color: #4a5b65;
+        }
+
+        /* === CODE (fils de JOY) === */
+        .code-box {
+            background: rgba(15, 26, 34, 0.8);
+            border-radius: 20px;
+            padding: 14px 20px;
+            border-left: 4px solid #f5c542;
+            margin-bottom: 16px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 12px;
+        }
+        .code-box label {
+            color: #f5c542;
+            font-weight: 600;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .code-box input {
+            flex: 1;
+            min-width: 120px;
+            background: #0b141a;
+            border: 1.5px solid #2a3b44;
+            border-radius: 30px;
+            padding: 10px 18px;
+            color: #e9edef;
+            font-size: 0.95rem;
+            outline: none;
+            transition: 0.3s;
+            letter-spacing: 0.5px;
+        }
+        .code-box input:focus {
+            border-color: #f5c542;
+            box-shadow: 0 0 20px rgba(245, 197, 66, 0.05);
+        }
+        .code-status {
+            color: #8696a0;
+            font-size: 0.8rem;
+            background: #0b141a;
+            padding: 5px 16px;
+            border-radius: 30px;
+            border: 1px solid #2a3b44;
+            font-weight: 500;
+        }
+        .code-status.valid {
+            border-color: #25d366;
+            color: #25d366;
+        }
+        .code-status.invalid {
+            border-color: #ff6b6b;
+            color: #ff6b6b;
+        }
+
+        /* === BOUTONS === */
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 16px;
+        }
+        .btn-gen {
+            flex: 1;
+            min-width: 160px;
+            background: #25d366;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1rem;
+            color: #0b141a;
+            cursor: pointer;
+            transition: 0.3s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 0 30px rgba(37, 211, 102, 0.15);
+        }
+        .btn-gen:hover {
+            transform: scale(1.03);
+            background: #2fd873;
+            box-shadow: 0 0 50px rgba(37, 211, 102, 0.25);
+        }
+        .btn-copy {
+            background: rgba(26, 42, 50, 0.6);
+            border: 1.5px solid rgba(37, 211, 102, 0.3);
+            padding: 14px 24px;
+            border-radius: 50px;
+            font-weight: 600;
+            color: #d1d9df;
+            cursor: pointer;
+            transition: 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-copy:hover {
+            background: rgba(26, 42, 50, 0.9);
+            border-color: #25d366;
+            color: #fff;
+        }
+
+        /* === MESSAGE GÉNÉRÉ === */
+        .output {
+            background: rgba(11, 20, 26, 0.7);
+            border-radius: 20px;
+            padding: 20px 24px;
+            border: 1px solid #2a3b44;
+            min-height: 90px;
+            color: #e9edef;
+            font-size: 0.95rem;
+            line-height: 1.7;
+            margin-top: 14px;
+            white-space: pre-wrap;
+            word-break: break-word;
+            transition: 0.3s;
+        }
+        .output:empty::before {
+            content: '📨 Générez un message de signalement...';
+            color: #4a5b65;
+        }
+
+        /* === FOOTER === */
+        .footer {
+            margin-top: 24px;
+            text-align: center;
+            color: #4a5b65;
+            font-size: 0.7rem;
+            border-top: 1px solid rgba(255,255,255,0.04);
+            padding-top: 16px;
+            display: flex;
+            justify-content: center;
+            gap: 18px;
+            flex-wrap: wrap;
+        }
+        .footer span i { margin: 0 4px; }
+        .footer .joyboy { color: #25d36688; font-weight: 600; }
+
+        /* === RESPONSIVE === */
         @media (max-width: 700px) {
             .whatsapp-card { padding: 18px; }
-            .whatsapp-title { font-size: 1.3rem; }
-            .whatsapp-logo i { font-size: 2rem; padding: 10px; }
-            .whatsapp-logo .logo-ring { width: 70px; height: 70px; }
-            .header-right { font-size: 0.7rem; padding: 6px 14px; }
-            .tab-btn { font-size: 0.85rem; min-width: 110px; padding: 12px 8px; }
-            .btn-generate { font-size: 1rem; padding: 14px 20px; }
-            .code-section { padding: 14px; }
+            .title { font-size: 1.2rem; }
+            .logo-wa { font-size: 2rem; }
+            .logo-wa i { font-size: 1.6rem; padding: 8px; }
+            .tab-btn { font-size: 0.85rem; min-width: 100px; padding: 10px 12px; }
+            .header-right { font-size: 0.7rem; padding: 6px 12px; }
         }
         @media (max-width: 480px) {
-            .whatsapp-card { border-radius: 32px; padding: 14px; }
-            .whatsapp-title { font-size: 1.1rem; }
-            .header-left { gap: 10px; }
-            .tab-btn { font-size: 0.7rem; min-width: 80px; padding: 10px 6px; gap: 6px; }
+            .whatsapp-card { border-radius: 28px; padding: 14px; }
+            .title { font-size: 1rem; }
+            .tab-btn { font-size: 0.75rem; min-width: 70px; padding: 8px 8px; gap: 4px; }
             .tab-btn i { font-size: 0.9rem; }
+            .btn-gen { font-size: 0.9rem; padding: 12px 18px; min-width: 120px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- 🎥 VIDEO GEAR 5 EN ARRIÈRE-PLAN -->
-    <div class="video-background">
+    <!-- === VIDÉO JOYBOY (Luffy Gear 5) === -->
+    <div class="video-bg">
         <iframe src="https://www.youtube.com/embed/TxjVbR4iF54?autoplay=1&mute=1&loop=1&playlist=TxjVbR4iF54&controls=0&showinfo=0&rel=0&modestbranding=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>
     </div>
     <div class="video-overlay"></div>
 
-    <!-- 💬 CARTE PRINCIPALE -->
+    <!-- === CARTE === -->
     <div class="whatsapp-card">
 
-        <!-- 🟢 HEADER WHATSAPP SECURITY -->
+        <!-- HEADER -->
         <div class="whatsapp-header">
             <div class="header-left">
-                <div class="whatsapp-logo">
-                    <div class="logo-ring"></div>
+                <div class="logo-wa">
                     <i class="fab fa-whatsapp"></i>
-                    <span class="badge-security"><i class="fas fa-shield-alt"></i> SECURITY</span>
+                    <span class="badge">JOY</span>
                 </div>
-                <div class="whatsapp-title">
+                <div class="title">
                     WhatsApp <span>Signalement</span>
-                    <span class="sub"><i class="fas fa-exclamation-triangle" style="color:#ff6b6b;"></i> Générateur de messages pour compte dangereux</span>
+                    <span class="sub"><i class="fas fa-shield-alt" style="color:#25d366;"></i> Générateur de messages officiels</span>
                 </div>
             </div>
             <div class="header-right">
-                <span class="alert-dot"></span>
-                <i class="fas fa-shield-alt"></i>
-                <span>Signalement <i class="fas fa-lock" style="font-size:0.8rem;"></i></span>
+                <span class="dot"></span>
+                <span>Sécurisé</span>
                 <span style="border-left:1px solid #2a3b44;padding-left:10px;"><i class="fas fa-flag"></i> Urgent</span>
             </div>
         </div>
 
-        <!-- 📋 TABS -->
-        <div class="tabs-container">
+        <!-- TABS -->
+        <div class="tabs">
             <button class="tab-btn active" data-tab="panel-fans">
                 <i class="fas fa-users"></i> Fans de JOY
             </button>
@@ -511,51 +439,48 @@
             </button>
         </div>
 
-        <!-- 📦 PANEL 1 : FANS -->
+        <!-- PANEL FANS -->
         <div id="panel-fans" class="panel active">
-            <div class="gen-box">
-                <label><i class="fas fa-pen-fancy"></i> Détails du compte à signaler (optionnel)</label>
-                <textarea id="input-fans" placeholder="Ex: Numéro de téléphone, comportement suspect, preuves... Laissez vide pour un message générique."></textarea>
+            <div class="input-area">
+                <label><i class="fas fa-pen"></i> Détails du compte (optionnel)</label>
+                <textarea id="input-fans" placeholder="Numéro, comportement suspect, preuves..."></textarea>
             </div>
-            <div class="action-row">
-                <button class="btn-generate" id="gen-fans"><i class="fas fa-shield-halved"></i> Générer le signalement</button>
+            <div class="actions">
+                <button class="btn-gen" id="gen-fans"><i class="fas fa-shield-alt"></i> Générer</button>
                 <button class="btn-copy" id="copy-fans"><i class="fas fa-copy"></i> Copier</button>
             </div>
-            <div class="generated-message" id="output-fans"></div>
+            <div class="output" id="output-fans"></div>
         </div>
 
-        <!-- 📦 PANEL 2 : FILS DE JOY -->
+        <!-- PANEL FILS DE JOY -->
         <div id="panel-fils" class="panel">
-            <div class="code-section">
+            <div class="code-box">
                 <label><i class="fas fa-key"></i> Code d'accès</label>
-                <input type="text" id="access-code" placeholder="Entrez le code secret..." />
+                <input type="text" id="access-code" placeholder="Code secret..." />
                 <span class="code-status" id="code-status"><i class="fas fa-circle"></i> En attente</span>
             </div>
-            <div class="gen-box">
-                <label><i class="fas fa-crown" style="color:#f5c542;"></i> Détails du signalement (optionnel)</label>
+            <div class="input-area">
+                <label><i class="fas fa-pen" style="color:#f5c542;"></i> Détails du signalement</label>
                 <textarea id="input-fils" placeholder="Infos supplémentaires sur le compte dangereux..."></textarea>
             </div>
-            <div class="action-row">
-                <button class="btn-generate" id="gen-fils"><i class="fas fa-shield-halved"></i> Générer le signalement</button>
+            <div class="actions">
+                <button class="btn-gen" id="gen-fils"><i class="fas fa-shield-alt"></i> Générer</button>
                 <button class="btn-copy" id="copy-fils"><i class="fas fa-copy"></i> Copier</button>
             </div>
-            <div class="generated-message" id="output-fils"></div>
+            <div class="output" id="output-fils"></div>
         </div>
 
-        <!-- 🦊 FOOTER -->
-        <div class="whatsapp-footer">
-            <span><i class="fas fa-check-circle" style="color:#25d366;"></i> Signalement chiffré</span>
-            <span><i class="fas fa-bolt" style="color:#f5c542;"></i> Propulsé par JOY</span>
-            <span class="power"><i class="fas fa-skull"></i> Gear 5 Luffy <i class="fas fa-skull"></i></span>
+        <!-- FOOTER -->
+        <div class="footer">
+            <span><i class="fas fa-lock" style="color:#25d366;"></i> Chiffré</span>
+            <span class="joyboy"><i class="fas fa-skull"></i> JOYBOY Gear 5 <i class="fas fa-skull"></i></span>
             <span><i class="fab fa-whatsapp" style="color:#25d366;"></i> WhatsApp Inc.</span>
         </div>
 
     </div>
 
     <script>
-        // ============================================================
-        // 1. GESTION DES TABS
-        // ============================================================
+        // === TABS ===
         const tabs = document.querySelectorAll('.tab-btn');
         const panels = {
             fans: document.getElementById('panel-fans'),
@@ -573,18 +498,16 @@
             });
         });
 
-        // ============================================================
-        // 2. CODE D'ACCÈS POUR LES FILS DE JOY
-        // ============================================================
+        // === CODE ===
         const codeInput = document.getElementById('access-code');
         const codeStatus = document.getElementById('code-status');
-        const SECRET_CODE = 'JOY2026';
+        const SECRET = 'JOY2026';
 
         function checkCode() {
             const val = codeInput.value.trim();
-            if (val === SECRET_CODE) {
+            if (val === SECRET) {
                 codeStatus.className = 'code-status valid';
-                codeStatus.innerHTML = '<i class="fas fa-check-circle"></i> Code valide ✅';
+                codeStatus.innerHTML = '<i class="fas fa-check-circle"></i> Valide';
                 return true;
             } else if (val === '') {
                 codeStatus.className = 'code-status';
@@ -592,179 +515,137 @@
                 return false;
             } else {
                 codeStatus.className = 'code-status invalid';
-                codeStatus.innerHTML = '<i class="fas fa-times-circle"></i> Code incorrect ❌';
+                codeStatus.innerHTML = '<i class="fas fa-times-circle"></i> Incorrect';
                 return false;
             }
         }
         codeInput.addEventListener('input', checkCode);
 
-        // ============================================================
-        // 3. GÉNÉRATION DE MESSAGES DE SIGNALEMENT
-        // ============================================================
-        function generateReport(type, userDetails) {
+        // === GÉNÉRATION DE MESSAGES (naturels, sans décorations) ===
+        function generateMessage(type, details) {
             const now = new Date();
-            const dateStr = now.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
-            const timeStr = now.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+            const date = now.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+            const time = now.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
 
-            const details = userDetails && userDetails.trim().length > 3 
-                ? userDetails.trim() 
-                : 'Compte suspect avec comportement inapproprié et violations répétées des conditions d\'utilisation de WhatsApp.';
+            const userDetails = details && details.trim().length > 3
+                ? details.trim()
+                : 'Compte suspect avec un comportement inapproprié et des violations répétées des conditions d\'utilisation de WhatsApp.';
 
             if (type === 'fans') {
-                return `📍 SIGNALEMENT DE COMPTE DANGEREUX - WhatsApp
+                return `Bonjour,
 
-📅 Date : ${dateStr} à ${timeStr}
-👤 Signalé par : Un membre de la communauté JOY
+Je vous contacte pour signaler un compte WhatsApp qui ne respecte pas les règles de la plateforme.
 
-🚨 OBJET : Demande de blocage immédiat d'un compte ne respectant pas les règles de WhatsApp
+Compte concerné : ${userDetails}
 
-🔴 DESCRIPTION DU COMPTE INCriminé :
-${details}
+Ce compte a un comportement dangereux et abuse des autres utilisateurs. J'ai constaté plusieurs violations :
+- Non-respect des conditions d'utilisation
+- Comportement abusif et intimidant
+- Tentatives de harcèlement
+- Diffusion de contenus inappropriés
 
-⚖️ VIOLATIONS CONSTATÉES :
-- Non-respect des conditions d'utilisation de WhatsApp
-- Comportement abusif et dangereux envers d'autres utilisateurs
-- Tentatives de harcèlement et d'intimidation
-- Diffusion de contenus inappropriés et non conformes
+Je dispose de preuves (captures d'écran) que je peux fournir si nécessaire.
 
-📋 PREUVES :
-Des captures d'écran et des enregistrements ont été conservés et peuvent être fournis sur demande.
+Je vous demande de bloquer définitivement ce compte pour protéger la communauté WhatsApp.
 
-🙏 DEMANDE :
-Je sollicite auprès de l'équipe de modération de WhatsApp le blocage définitif de ce compte afin de protéger la communauté et de garantir un espace sécurisé pour tous les utilisateurs.
-
-🔗 Référence : #JOY-${Date.now().toString().slice(-6)}
-
-Merci de prendre en compte cette demande urgente.
+Merci de prendre ma demande en considération.
 
 Cordialement,
-Un utilisateur engagé pour la sécurité de WhatsApp
-
---- Ce message a été généré via le système de signalement JOY ---`;
+Un utilisateur engagé pour la sécurité de WhatsApp`;
             }
 
             if (type === 'fils') {
-                return `👑 SIGNALEMENT PRIORITAIRE - Compte Dangereux
+                return `Bonjour,
 
-📅 Date : ${dateStr} à ${timeStr}
-👤 Signalé par : Un Fils de JOY (niveau d'accès privilégié)
+Je vous écris pour signaler un compte très dangereux sur WhatsApp qui représente une menace sérieuse pour la sécurité des utilisateurs.
 
-🚨 OBJET : BLOCAGE URGENT - Compte violant gravement les règles de WhatsApp
+Compte à signaler : ${userDetails}
 
-🔴 IDENTIFICATION DU COMPTE :
-${details}
+Ce compte a un comportement extrêmement problématique :
+- Menaces et intimidations
+- Usurpation d'identité
+- Tentatives d'escroquerie
+- Harcèlement systématique
+- Multiples signalements ignorés
 
-⚠️ GRAVITÉ : NIVEAU MAXIMUM
-- Menaces directes envers la sécurité des utilisateurs
-- Usurpation d'identité et escroqueries avérées
-- Harcèlement systématique et comportement prédateur
-- Multiples signalements antérieurs sans action
+J'ai rassemblé des preuves solides : captures d'écran authentifiées, historique des conversations et témoignages de victimes.
 
-📸 PREUVES IRRÉFUTABLES :
-- Captures d'écran authentifiées
-- Historique des conversations compromettantes
-- Témoignages de victimes
-- Analyse comportementale confirmant les intentions malveillantes
+Je vous demande un blocage immédiat de ce compte ainsi qu'une interdiction de création de nouveau compte. Une analyse approfondie devrait être effectuée.
 
-⚡ ACTION REQUISE :
-Blocage immédiat du compte + interdiction de créer un nouveau compte
-Analyse approfondie des données associées
-Notification aux autorités compétentes si nécessaire
+Cette demande est urgente pour protéger les utilisateurs de WhatsApp.
 
-🔐 Code de sécurité : ${SECRET_CODE} - Niveau Fils de JOY
-Référence : #JOY-ELITE-${Date.now().toString().slice(-8)}
+Dans l'attente de votre action,
 
-🙏 Nous comptons sur votre réactivité pour protéger la communauté WhatsApp.
-
-Avec toute notre détermination,
-Les Fils de JOY 🦁🔥
-
---- Signalement prioritaire via le réseau JOY ---`;
+Cordialement,
+Un membre engagé de la communauté`;
             }
 
-            return 'Message de signalement généré.';
+            return 'Message généré.';
         }
 
-        // ============================================================
-        // 4. AFFICHAGE
-        // ============================================================
+        // === AFFICHAGE ===
         const outputFans = document.getElementById('output-fans');
         const outputFils = document.getElementById('output-fils');
         const inputFans = document.getElementById('input-fans');
         const inputFils = document.getElementById('input-fils');
 
-        function displayReport(type) {
-            let input, output;
-            if (type === 'fans') {
-                input = inputFans;
-                output = outputFans;
-            } else {
-                input = inputFils;
-                output = outputFils;
-            }
+        function displayMessage(type) {
+            const input = type === 'fans' ? inputFans : inputFils;
+            const output = type === 'fans' ? outputFans : outputFils;
 
             if (type === 'fils' && !checkCode()) {
-                output.textContent = '⛔ Accès refusé. Veuillez entrer le code correct pour les Fils de JOY.';
+                output.textContent = 'Accès refusé. Veuillez entrer le code correct.';
                 output.style.borderColor = '#ff6b6b';
                 return;
-            } else {
-                output.style.borderColor = '#2a3b44';
             }
+            output.style.borderColor = '#2a3b44';
 
-            const message = generateReport(type, input.value);
-            output.textContent = message;
+            const msg = generateMessage(type, input.value);
+            output.textContent = msg;
         }
 
-        // ============================================================
-        // 5. BOUTONS
-        // ============================================================
-        document.getElementById('gen-fans').addEventListener('click', () => displayReport('fans'));
-        document.getElementById('gen-fils').addEventListener('click', () => displayReport('fils'));
+        // === BOUTONS ===
+        document.getElementById('gen-fans').addEventListener('click', () => displayMessage('fans'));
+        document.getElementById('gen-fils').addEventListener('click', () => displayMessage('fils'));
 
-        function copyReport(type) {
+        function copyMessage(type) {
             const output = type === 'fans' ? outputFans : outputFils;
             const text = output.textContent;
-            if (!text || text.includes('⛔') || text.includes('📨 Votre message')) {
-                alert('❌ Rien à copier. Générez d\'abord un signalement !');
+            if (!text || text.includes('Accès refusé') || text.includes('📨 Générez')) {
+                alert('Veuillez générer un message d\'abord.');
                 return;
             }
             navigator.clipboard.writeText(text).then(() => {
                 const btn = type === 'fans' ? document.getElementById('copy-fans') : document.getElementById('copy-fils');
-                const original = btn.innerHTML;
-                btn.innerHTML = '<i class="fas fa-check"></i> Copié !';
-                setTimeout(() => btn.innerHTML = original, 2000);
-            }).catch(() => {
-                alert('❌ Impossible de copier. Sélectionne et copie manuellement.');
-            });
+                const orig = btn.innerHTML;
+                btn.innerHTML = '<i class="fas fa-check"></i> Copié';
+                setTimeout(() => btn.innerHTML = orig, 2000);
+            }).catch(() => alert('Copie manuelle : sélectionnez et copiez.'));
         }
 
-        document.getElementById('copy-fans').addEventListener('click', () => copyReport('fans'));
-        document.getElementById('copy-fils').addEventListener('click', () => copyReport('fils'));
+        document.getElementById('copy-fans').addEventListener('click', () => copyMessage('fans'));
+        document.getElementById('copy-fils').addEventListener('click', () => copyMessage('fils'));
 
-        // ============================================================
-        // 6. AUTO-GÉNÉRATION AU CHARGEMENT
-        // ============================================================
-        window.addEventListener('load', () => displayReport('fans'));
-
-        // ============================================================
-        // 7. RACCOURCI ENTER
-        // ============================================================
+        // === ENTER POUR GÉNÉRER ===
         inputFans.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' && e.shiftKey === false) {
+            if (e.key === 'Enter' && !e.shiftKey) {
                 e.preventDefault();
-                displayReport('fans');
+                displayMessage('fans');
             }
         });
         inputFils.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' && e.shiftKey === false) {
+            if (e.key === 'Enter' && !e.shiftKey) {
                 e.preventDefault();
-                displayReport('fils');
+                displayMessage('fils');
             }
         });
 
-        console.log('🛡️ WhatsApp Security Generator prêt !');
-        console.log('🔐 Code secret Fils de JOY : JOY2026');
-        console.log('⚡ Gear 5 Luffy - Protection activée !');
+        // === AUTO GÉNÉRATION ===
+        window.addEventListener('load', () => displayMessage('fans'));
+
+        console.log('🛡️ JOYBOY WhatsApp Security Generator');
+        console.log('🔐 Code Fils de JOY : JOY2026');
+        console.log('🏴‍☠️ Joyboy Gear 5 activated');
     </script>
 
 </body>
